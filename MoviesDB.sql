@@ -50,12 +50,19 @@ VALUES
 (109, 'Hang-jun', 'Jang', 'M'),    -- Forgotten
 (110, 'Guy', 'Ritchie', 'M'),      -- Sherlock Holmes
 (111, 'Ridley', 'Scott', 'M');     -- Black Hawk Down
+
 CREATE TABLE IF NOT EXISTS Genres(
 genreID INT(2) NOT NULL,
 genreName VARCHAR(50) NOT NULL,
-CONSTRAINT genreID_PK PRIMARY KEY (genreID)
+CONSTRAINT PK_genreID PRIMARY KEY (genreID)
 ); 
-INSERT INTO Genres (genreID, genreName ) VALUES (1,'Science Fiction ', 2,'Drama', 3,'Thriller', 4,'Comedy', 5,'Mystery', 6,'War');
+INSERT INTO Genres (genreID, genreName ) VALUES
+    (1,'Science Fiction '), 
+    (2,'Drama'),
+    (3,'Thriller'),
+    (4,'Comedy'),
+    (5,'Mystery'), 
+    (6,'War');
 
 CREATE TABLE Rating (
     ID INT(10) PRIMARY KEY,
