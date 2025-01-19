@@ -45,7 +45,11 @@ VALUES
 (104, 'Chris', 'Columbus', 'M'),    -- Home Alone
 (105, 'Richard', 'Kelly', 'M'),     -- Donnie Darko
 (106, 'Mel', 'Gibson', 'M');        -- Hacksaw Ridge
-
+(107, 'Denis', 'Villeneuve', 'M'),  -- Dune
+(108, 'Charlotte', 'Wells', 'F'),  -- Aftersun
+(109, 'Hang-jun', 'Jang', 'M'),    -- Forgotten
+(110, 'Guy', 'Ritchie', 'M'),      -- Sherlock Holmes
+(111, 'Ridley', 'Scott', 'M');     -- Black Hawk Down
 CREATE TABLE IF NOT EXISTS Genres(
 genreID INT(2) NOT NULL,
 genreName VARCHAR(50) NOT NULL,
