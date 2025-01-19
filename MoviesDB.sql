@@ -9,14 +9,15 @@ RelaseDate DATE NOT NULL,
 Director_ID INT NOT NULL,
 Genre_ID INT NOT NULL,
 FOREIGN KEY (Director_ID) REFERENCES Director(ID) ON DELETE CASCADE,
-FOREIGN KEY (Genre_ID) REFERENCES Genre(ID) ON DELETE CASCADE
+FOREIGN KEY (Genre_ID) REFERENCES Genre(ID) ON DELETE CASCADE
 );
 
 CREATE TABLE Actor (
     ID INT PRIMARY KEY,
     Fname VARCHAR(20) NOT NULL,
     Lname VARCHAR(20) NOT NULL,
-   gender VARCHAR(1) NOT NULL CHECK (gender IN ('M', 'F'))
+    Gender VARCHAR(1) NOT NULL,
+    CONSTRAINT Gender_Check CHECK (Gender IN ('M', 'F'))
 );
 
 CREATE TABLE Cast (
@@ -52,7 +53,9 @@ CONSTRAINT genreID_PK PRIMARY KEY (genreID)
 ); 
 INSERT INTO Genres (genreID, genreName ) VALUES (1,'Science Fiction ', 2,'Drama', 3,'Thriller', 4,'Comedy', 5,'Mystery', 6,'War');
 
-CREATE TABLE Rating(
-ID INT (10) PRIMARY KEY,
-Ratings VARCHAR(20)
+CREATE TABLE Rating (
+    ID INT(10) PRIMARY KEY,
+    Film_ID INT,
+    Ratings VARCHAR(20),
+    FOREIGN KEY (Film_ID) REFERENCES Film(ID)
 );
