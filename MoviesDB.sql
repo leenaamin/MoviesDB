@@ -44,8 +44,8 @@ VALUES
 (103, 'David', 'Fincher', 'M'),     -- Gone Girl
 (104, 'Chris', 'Columbus', 'M'),    -- Home Alone
 (105, 'Richard', 'Kelly', 'M'),     -- Donnie Darko
-(106, 'Mel', 'Gibson', 'M');        -- Hacksaw Ridge
-(107, 'Denis', 'Villeneuve', 'M'),  -- Dune
+(106, 'Mel', 'Gibson', 'M'),       -- Hacksaw Ridge
+(107,'Denis', 'Villeneuve', 'M'), -- Dune
 (108, 'Charlotte', 'Wells', 'F'),  -- Aftersun
 (109, 'Hang-jun', 'Jang', 'M'),    -- Forgotten
 (110, 'Guy', 'Ritchie', 'M'),      -- Sherlock Holmes
@@ -61,12 +61,27 @@ INSERT INTO Genres (genreID, genreName ) VALUES
     (2,'Drama'),
     (3,'Thriller'),
     (4,'Comedy'),
-    (5,'Mystery'), 
+    (5,'Mystery'),
     (6,'War');
 
 CREATE TABLE Rating (
     ID INT(10) PRIMARY KEY,
     Film_ID INT,
-    Ratings VARCHAR(20),
+    Ratings DECIMAL (1.1),
     FOREIGN KEY (Film_ID) REFERENCES Film(ID)
 );
+INSERT INTO Ratings (ID,Ratings) VALUES
+(1,9.5),
+(2,8),
+(3,9),
+(4,8.5),
+(5,9),
+(6,8.5),
+(7,8.5),
+(8,8.5),
+(9,8.5),
+(10,8,5),
+(11,8);
+SELECT * 
+FROM Ratings
+WHERE Ratings > 8;
