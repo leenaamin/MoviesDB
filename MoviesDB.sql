@@ -12,13 +12,49 @@ FOREIGN KEY (Director_ID) REFERENCES Director(ID) ON DELETE CASCADE,
 FOREIGN KEY (Genre_ID) REFERENCES Genre(ID) ON DELETE CASCADE
 );
 
-CREATE TABLE Actor (
-    ID INT PRIMARY KEY,
-    Fname VARCHAR(20) NOT NULL,
-    Lname VARCHAR(20) NOT NULL,
+DROP TABLE IF EXISTS Actor;
+CREATE TABLE IF NOT EXISTS Actor (
+    ActorID INT(5) NOT NULL,
+    Fname VARCHAR(50) NOT NULL,
+    Lname VARCHAR(50) NOT NULL,
     Gender VARCHAR(1) NOT NULL,
-    CONSTRAINT Gender_Check CHECK (Gender IN ('M', 'F'))
+    CONSTRAINT Gender_Check CHECK (Gender IN ('M' , 'F')),
+    CONSTRAINT PK_ActorID PRIMARY KEY (ActorID)
 );
+
+INSERT INTO Actor (ActorID ,Fname, Lname, Gender)
+VALUES
+(1, 'Matthew', 'McConaughey', 'M'),  -- Interstellar
+(2, 'Anne', 'Hathaway', 'F'),
+(3, 'Jessica', 'Chastain', 'F'),
+(4, 'Mackenzie', 'Foy', 'F'),
+(5, 'Paul', 'Giamatti', 'M'),       -- The Holdovers
+(6, 'Maya', 'Hawke', 'F'),
+(7, 'Ben', 'Affleck', 'M'),         -- Gone Girl
+(8, 'Tyler', 'Perry', 'M'),
+(9, 'Rosamund', 'Pike', 'F'),
+(10, 'Macaulay', 'Culkin', 'M'),    -- Home Alone
+(11, 'Joan', 'Cusack', 'F'),
+(12, 'Jake', 'Gyllenhaal', 'M'),    -- Donnie Darko
+(13, 'Jena', 'Malone', 'F'),
+(14, 'Andrew', 'Garfield', 'M'),    -- Hacksaw Ridge
+(15, 'Hugo', 'Weaving', 'M'),
+(16, 'Vera', 'Farmiga', 'F'),
+(17, 'Timothée', 'Chalamet', 'M'),  -- Dune
+(18, 'Zendaya', 'Coleman', 'F'),
+(19, 'Oscar', 'Isaac', 'M'),
+(20, 'Paul', 'Mescal', 'M'),        -- Aftersun
+(21, 'Tessa', 'Thompson', 'F'),
+(22, 'Colin', 'Farrell', 'M'),
+(23, 'Kang', 'Ha-neul', 'M'),       -- Forgotten
+(24, 'Jeon', 'Hye-jin', 'F'),
+(25, 'Lee', 'Joon', 'M'),
+(26, 'Robert', 'Downey Jr.', 'M'),  -- Sherlock Holmes
+(27, 'Jude', 'Law', 'M'),
+(28, 'Mark', 'Strong', 'M'),
+(29, 'Josh', 'Hartnett', 'M'),      -- Black Hawk Down
+(30, 'Tom', 'Sizemore', 'M'),
+(31, 'Ewan', 'McGregor', 'M');
 
 CREATE TABLE Cast (
     ID INT PRIMARY KEY,
