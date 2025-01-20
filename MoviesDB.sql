@@ -116,6 +116,61 @@ INSERT INTO Genres (genreID, genreName ) VALUES
     (6,'War');
 
 
+INSERT INTO Cast (ID, Film_ID, Actor_ID, RoleName)
+VALUES
+    -- Interstellar (Film_ID = 1)
+    (1, 1, 1, 'Main actor'),           -- Matthew McConaughey
+    (2, 1, 2, 'Supporting actor'),     -- Anne Hathaway
+    (3, 1, 3, 'Supporting actor'),     -- Jessica Chastain
+    (4, 1, 4, 'Supporting actor'),     -- Mackenzie Foy
+
+    -- The Holdovers (Film_ID = 2)
+    (5, 2, 5, 'Main actor'),           -- Paul Giamatti
+    (6, 2, 6, 'Supporting actor'),     -- Maya Hawke
+
+    -- Gone Girl (Film_ID = 3)
+    (7, 3, 7, 'Main actor'),           -- Ben Affleck
+    (8, 3, 8, 'Supporting actor'),     -- Tyler Perry
+    (9, 3, 9, 'Supporting actor'),     -- Rosamund Pike
+
+    -- Home Alone (Film_ID = 4)
+    (10, 4, 10, 'Main actor'),         -- Macaulay Culkin
+    (11, 4, 11, 'Supporting actor'),   -- Joan Cusack
+
+    -- Donnie Darko (Film_ID = 5)
+    (12, 5, 12, 'Main actor'),         -- Jake Gyllenhaal
+    (13, 5, 13, 'Supporting actor'),   -- Jena Malone
+
+    -- Hacksaw Ridge (Film_ID = 6)
+    (14, 6, 14, 'Main actor'),         -- Andrew Garfield
+    (15, 6, 15, 'Supporting actor'),   -- Hugo Weaving
+    (16, 6, 16, 'Supporting actor'),   -- Vera Farmiga
+
+    -- Dune (Film_ID = 7)
+    (17, 7, 17, 'Main actor'),         -- Timothée Chalamet
+    (18, 7, 18, 'Supporting actor'),   -- Zendaya Coleman
+    (19, 7, 19, 'Supporting actor'),   -- Oscar Isaac
+
+    -- Aftersun (Film_ID = 8)
+    (20, 8, 20, 'Main actor'),         -- Paul Mescal
+    (21, 8, 21, 'Supporting actor'),   -- Tessa Thompson
+    (22, 8, 22, 'Supporting actor'),   -- Colin Farrell
+
+    -- Forgotten (Film_ID = 9)
+    (23, 9, 23, 'Main actor'),         -- Kang Ha-neul
+    (24, 9, 24, 'Supporting actor'),   -- Jeon Hye-jin
+    (25, 9, 25, 'Supporting actor'),   -- Lee Joon
+
+    -- Sherlock Holmes (Film_ID = 10)
+    (26, 10, 26, 'Main actor'),        -- Robert Downey Jr.
+    (27, 10, 27, 'Supporting actor'),  -- Jude Law
+    (28, 10, 28, 'Supporting actor'),  -- Mark Strong
+
+    -- Black Hawk Down (Film_ID = 11)
+    (29, 11, 29, 'Main actor'),        -- Josh Hartnett
+    (30, 11, 30, 'Supporting actor'),  -- Tom Sizemore
+    (31, 11, 31, 'Supporting actor');  -- Ewan McGregor
+
 INSERT INTO Ratings (ID,Ratings) VALUES
 (1,9.5),
 (2,8),
@@ -142,3 +197,7 @@ SELECT *
 FROM Directors
 ORDER BY lName ASC;
 
+SELECT Film_ID, COUNT(Actor_ID) AS ActorCount
+FROM Cast
+GROUP BY Film_ID
+HAVING COUNT(Actor_ID) > 2;
