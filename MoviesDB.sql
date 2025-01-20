@@ -121,3 +121,9 @@ INSERT INTO Ratings (ID,Ratings) VALUES
 SELECT * 
 FROM Ratings
 WHERE Ratings > 8;
+
+SELECT genreName, COUNT(*) AS FilmCount
+FROM Film
+INNER JOIN Genres ON Film.Genre_ID = Genres.genreID
+GROUP BY genreName
+ORDER BY FilmCount DESC;
