@@ -1,16 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS MoviesDB;
 USE MoviesDB;
 
-CREATE TABLE MoviesDB.Film (
-ID INT PRIMARY KEY,
-Title VARCHAR(100) NOT NULL,
-Language VARCHAR(50) NOT NULL,
-RelaseDate DATE NOT NULL,
-Director_ID INT NOT NULL,
-Genre_ID INT NOT NULL,
-FOREIGN KEY (Director_ID) REFERENCES Director(ID) ON DELETE CASCADE,
-FOREIGN KEY (Genre_ID) REFERENCES Genre(ID) ON DELETE CASCADE
-);
 
 DROP TABLE IF EXISTS Actor;
 CREATE TABLE IF NOT EXISTS Actor (
@@ -21,6 +11,52 @@ CREATE TABLE IF NOT EXISTS Actor (
     CONSTRAINT Gender_Check CHECK (Gender IN ('M' , 'F')),
     CONSTRAINT PK_ActorID PRIMARY KEY (ActorID)
 );
+
+
+
+CREATE TABLE IF NOT EXISTS Directors (
+directorID INT(5) NOT NULL,
+fName VARCHAR(50),
+lName VARCHAR(50),
+gender VARCHAR (1)CHECK (gender IN ('M','F')),
+CONSTRAINT PK_directorID PRIMARY KEY (directorID)
+);
+
+CREATE TABLE IF NOT EXISTS Genres(
+genreID INT(2) NOT NULL,
+genreName VARCHAR(50) NOT NULL,
+CONSTRAINT PK_genreID PRIMARY KEY (genreID)
+); 
+
+
+CREATE TABLE MoviesDB.Film (
+ID INT PRIMARY KEY,
+Title VARCHAR(100) NOT NULL,
+Language VARCHAR(50) NOT NULL,
+RelaseDate DATE NOT NULL,
+Director_ID INT NOT NULL,
+Genre_ID INT NOT NULL,
+FOREIGN KEY (Director_ID) REFERENCES Directors(directorID) ON DELETE CASCADE,
+FOREIGN KEY (Genre_ID) REFERENCES Genres(genreID) ON DELETE CASCADE
+);
+
+CREATE TABLE Cast (
+    ID INT PRIMARY KEY,
+    Film_ID INT,
+    Actor_ID INT,
+    RoleName VARCHAR(20) NOT NULL,
+    FOREIGN KEY (Film_ID) REFERENCES Film(ID),
+    FOREIGN KEY (Actor_ID) REFERENCES Actor(ActorID),
+    CHECK (RoleName IN ('Main actor', 'Supporting actor'))
+);
+
+CREATE TABLE Rating (
+    ID INT(10) PRIMARY KEY,
+    Film_ID INT,
+    Ratings DECIMAL (1.1),
+    FOREIGN KEY (Film_ID) REFERENCES Film(ID)
+);
+
 
 INSERT INTO Actor (ActorID ,Fname, Lname, Gender)
 VALUES
@@ -56,23 +92,6 @@ VALUES
 (30, 'Tom', 'Sizemore', 'M'),
 (31, 'Ewan', 'McGregor', 'M');
 
-CREATE TABLE Cast (
-    ID INT PRIMARY KEY,
-    Film_ID INT,
-    Actor_ID INT,
-    RoleName VARCHAR(20) NOT NULL,
-    FOREIGN KEY (Film_ID) REFERENCES Film(Film_ID),
-    FOREIGN KEY (Actor_ID) REFERENCES Actor(Actor_ID),
-    CHECK (RoleName IN ('Main actor', 'Supporting actor'))
-);
-CREATE TABLE IF NOT EXISTS Directors (
-directorID INT(5) NOT NULL,
-fName VARCHAR(50),
-lName VARCHAR(50),
-gender VARCHAR (1)CHECK (gender IN ('M','F')),
-CONSTRAINT PK_directorID PRIMARY KEY (directorID)
-);
-
 INSERT INTO Directors (directorID, fName, lName, gender)
 VALUES 
 (101, 'Christopher', 'Nolan', 'M'),  -- Interstellar
@@ -87,11 +106,7 @@ VALUES
 (110, 'Guy', 'Ritchie', 'M'),      -- Sherlock Holmes
 (111, 'Ridley', 'Scott', 'M');     -- Black Hawk Down
 
-CREATE TABLE IF NOT EXISTS Genres(
-genreID INT(2) NOT NULL,
-genreName VARCHAR(50) NOT NULL,
-CONSTRAINT PK_genreID PRIMARY KEY (genreID)
-); 
+
 INSERT INTO Genres (genreID, genreName ) VALUES
     (1,'Science Fiction '), 
     (2,'Drama'),
@@ -100,12 +115,7 @@ INSERT INTO Genres (genreID, genreName ) VALUES
     (5,'Mystery'),
     (6,'War');
 
-CREATE TABLE Rating (
-    ID INT(10) PRIMARY KEY,
-    Film_ID INT,
-    Ratings DECIMAL (1.1),
-    FOREIGN KEY (Film_ID) REFERENCES Film(ID)
-);
+
 INSERT INTO Ratings (ID,Ratings) VALUES
 (1,9.5),
 (2,8),
@@ -127,3 +137,8 @@ FROM Film
 INNER JOIN Genres ON Film.Genre_ID = Genres.genreID
 GROUP BY genreName
 ORDER BY FilmCount DESC;
+
+SELECT * 
+FROM Directors
+ORDER BY lName ASC;
+
