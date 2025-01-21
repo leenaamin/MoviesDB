@@ -1,8 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS MoviesDB;
 USE MoviesDB;
 
-
-
 CREATE TABLE IF NOT EXISTS Actor (
     ActorID INT(5) NOT NULL,
     Fname VARCHAR(50) NOT NULL,
@@ -10,8 +8,6 @@ CREATE TABLE IF NOT EXISTS Actor (
     gender VARCHAR (1)CHECK (gender IN ('M','F')),
     CONSTRAINT PK_ActorID PRIMARY KEY (ActorID)
 );
-
-
 
 CREATE TABLE IF NOT EXISTS Directors (
 directorID INT(5) NOT NULL,
@@ -27,8 +23,7 @@ genreName VARCHAR(50) NOT NULL,
 CONSTRAINT PK_genreID PRIMARY KEY (genreID)
 ); 
 
-
-CREATE TABLE MoviesDB.Film (
+CREATE TABLE IF NOT EXISTS MoviesDB.Film (
 ID INT,
 Title VARCHAR(100) NOT NULL,
 Language VARCHAR(50) NOT NULL,
@@ -36,27 +31,64 @@ ReleaseDate DATE NOT NULL,
 Director_ID INT NOT NULL,
 Genre_ID INT NOT NULL,
 CONSTRAINT Film_PK PRIMARY KEY (ID),
-FOREIGN KEY (Director_ID) REFERENCES Director(ID) ON DELETE CASCADE,
-FOREIGN KEY (Genre_ID) REFERENCES Genres(ID) ON DELETE CASCADE
+FOREIGN KEY (Director_ID) REFERENCES Directors(directorID) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (Genre_ID) REFERENCES Genres(genreID)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE Cast (
+CREATE TABLE IF NOT EXISTS Cast (
     ID INT PRIMARY KEY,
     Film_ID INT NULL,
     Actor_ID INT,
     RoleName VARCHAR(20) NOT NULL,
-    FOREIGN KEY (Film_ID) REFERENCES Film(ID) ON DELETE SET NULL,
-    FOREIGN KEY (Actor_ID) REFERENCES Actor(ActorID),
+    FOREIGN KEY (Film_ID) REFERENCES Film(ID) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (Actor_ID) REFERENCES Actor(ActorID)ON DELETE SET NULL ON UPDATE CASCADE,
     CHECK (RoleName IN ('Main actor', 'Supporting actor'))
 );
 
-CREATE TABLE Rating (
+CREATE TABLE IF NOT EXISTS Rating (
     ID INT(10) PRIMARY KEY,
     Film_ID INT,
     Ratings DECIMAL(3,1), 
-    FOREIGN KEY (Film_ID) REFERENCES Film(ID)
+    FOREIGN KEY (Film_ID) REFERENCES Film(ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+INSERT INTO Directors (directorID, fName, lName, gender)
+VALUES 
+(99, 'Christopher', 'Nolan', 'M'),  -- Interstellar
+(102, 'Alexander', 'Payne', 'M'),   -- The Holdovers
+(103, 'David', 'Fincher', 'M'),     -- Gone Girl
+(104, 'Chris', 'Columbus', 'M'),    -- Home Alone
+(105, 'Richard', 'Kelly', 'M'),     -- Donnie Darko
+(106, 'Mel', 'Gibson', 'M'),       -- Hacksaw Ridge
+(107,'Denis', 'Villeneuve', 'M'), -- Dune
+(108, 'Charlotte', 'Wells', 'F'),  -- Aftersun
+(109, 'Hang-jun', 'Jang', 'M'),    -- Forgotten
+(110, 'Guy', 'Ritchie', 'M'),      -- Sherlock Holmes
+(111, 'Ridley', 'Scott', 'M');     -- Black Hawk Down
+
+INSERT INTO Genres (genreID, genreName ) VALUES
+    (1,'Science Fiction '), 
+    (2,'Drama'),
+    (3,'Thriller'),
+    (4,'Comedy'),
+    (5,'Mystery'),
+    (6,'War');
+    
+    INSERT INTO film (ID, Title, Language, ReleaseDate, Director_ID, Genre_ID) -- Insert
+VALUES
+(01, 'Interstellar', 'English', '2014-10-26', 99, 1),
+(02, 'The Holdovers', 'English', '2023-10-27', 102, 2),
+(03, 'Gone Girl', 'English', '2014-10-3', 103, 3),
+(04, 'Home Alone', 'English', '1990-11-10', 104, 4),
+(05, 'Donnie Darko', 'English', '2001-10-26', 105, 5),
+(06, 'Hacksaw Ridge', 'English', '2016-10-16', 106, 6),
+(07, 'Dune', 'English', '2021-9-3', 107, 1),
+(08, 'Aftersun', 'English', '2022-10-21', 108, 2),
+(09, 'Forgotten', 'Korean', '2017-11-29', 109, 3),
+(10, 'Sherlock Holmes', 'English', '2009-12-25', 110, 5),
+(11, 'Black Hawk Down', 'English', '2002-1-18', 111, 6);
+
+INSERT INTO Actor(ActorID,Fname,Lname,gender ) VALUES
 (1, 'Matthew', 'McConaughey', 'M'),  -- Interstellar
 (2, 'Anne', 'Hathaway', 'F'),
 (3, 'Jessica', 'Chastain', 'F'),
@@ -88,44 +120,6 @@ CREATE TABLE Rating (
 (29, 'Josh', 'Hartnett', 'M'),      -- Black Hawk Down
 (30, 'Tom', 'Sizemore', 'M'),
 (31, 'Ewan', 'McGregor', 'M');
-
-INSERT INTO Directors (directorID, fName, lName, gender)
-VALUES 
-(99, 'Christopher', 'Nolan', 'M'),  -- Interstellar
-(102, 'Alexander', 'Payne', 'M'),   -- The Holdovers
-(103, 'David', 'Fincher', 'M'),     -- Gone Girl
-(104, 'Chris', 'Columbus', 'M'),    -- Home Alone
-(105, 'Richard', 'Kelly', 'M'),     -- Donnie Darko
-(106, 'Mel', 'Gibson', 'M'),       -- Hacksaw Ridge
-(107,'Denis', 'Villeneuve', 'M'), -- Dune
-(108, 'Charlotte', 'Wells', 'F'),  -- Aftersun
-(109, 'Hang-jun', 'Jang', 'M'),    -- Forgotten
-(110, 'Guy', 'Ritchie', 'M'),      -- Sherlock Holmes
-(111, 'Ridley', 'Scott', 'M');     -- Black Hawk Down
-
-
-INSERT INTO Genres (genreID, genreName ) VALUES
-    (1,'Science Fiction '), 
-    (2,'Drama'),
-    (3,'Thriller'),
-    (4,'Comedy'),
-    (5,'Mystery'),
-    (6,'War');
-
-INSERT INTO film (ID, Title, Language, ReleaseDate, Director_ID, Genre_ID) -- Insert
-VALUES
-(01, 'Interstellar', 'English', '2014-10-26', 101, 1),
-(02, 'The Holdovers', 'English', '2023-10-27', 102, 2),
-(03, 'Gone Girl', 'English', '2014-10-3', 103, 3),
-(04, 'Home Alone', 'English', '1990-11-10', 104, 4),
-(05, 'Donnie Darko', 'English', '2001-10-26', 105, 5),
-(06, 'Hacksaw Ridge', 'English', '2016-10-16', 106, 6),
-(07, 'Dune', 'English', '2021-9-3', 107, 1),
-(08, 'Aftersun', 'English', '2022-10-21', 108, 2),
-(09, 'Forgotten', 'Korean', '2017-11-29', 109, 3),
-(10, 'Sherlock Holmes', 'English', '2009-12-25', 110, 5),
-(11, 'Black Hawk Down', 'English', '2002-1-18', 111, 6);
-
 
 INSERT INTO Cast (ID, Film_ID, Actor_ID, RoleName)
 VALUES
@@ -183,17 +177,17 @@ VALUES
     (31, 11, 31, 'Supporting actor');  -- Ewan McGregor
 
 INSERT INTO Rating (ID, Film_ID, Ratings) VALUES
-(1, 101, 9.5),
-(2, 102, 8.0),
-(3, 103, 9.0),
-(4, 104, 8.5),
-(5, 105, 9.0),
-(6, 106, 8.5),
-(7, 107, 8.5),
-(8, 108, 8.5),
-(9, 109, 8.5),
-(10, 110, 8.5),
-(11, 111, 8.0);
+(1, 01, 9.5),
+(2, 02, 8.0),
+(3, 03, 9.0),
+(4, 04, 8.5),
+(5, 05, 9.0),
+(6, 06, 8.5),
+(7, 07, 8.5),
+(8, 08, 8.5),
+(9, 09, 8.5),
+(10, 10, 8.5),
+(11, 11, 8.0);
 
 SELECT * 
 FROM Rating
