@@ -193,6 +193,9 @@ SELECT *
 FROM Rating
 WHERE Ratings > 8;
 
+DELETE FROM Rating
+WHERE Film_ID = 11;
+
 SELECT genreName, COUNT(*) AS FilmCount
 FROM Film
 INNER JOIN Genres ON Film.Genre_ID = Genres.genreID
