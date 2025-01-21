@@ -225,3 +225,7 @@ ON Film.Director_ID = Directors.directorID;
 UPDATE Directors
 SET directorID = 100
 WHERE directorID = 101;
+
+UPDATE Genres
+SET genreName = 'Sci-Fi'
+WHERE genreID = 1;
