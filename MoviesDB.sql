@@ -221,3 +221,7 @@ SELECT Film.Title, Directors.fName, Directors.lName -- Inner join
 FROM Film
 INNER JOIN Directors
 ON Film.Director_ID = Directors.directorID;
+
+UPDATE Directors
+SET directorID = 100
+WHERE directorID = 101;
