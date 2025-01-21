@@ -43,10 +43,10 @@ FOREIGN KEY (Genre_ID) REFERENCES Genres(ID) ON DELETE CASCADE
 
 CREATE TABLE Cast (
     ID INT PRIMARY KEY,
-    Film_ID INT,
+    Film_ID INT NULL,
     Actor_ID INT,
     RoleName VARCHAR(20) NOT NULL,
-    FOREIGN KEY (Film_ID) REFERENCES Film(ID),
+    FOREIGN KEY (Film_ID) REFERENCES Film(ID) ON DELETE SET NULL,
     FOREIGN KEY (Actor_ID) REFERENCES Actor(ActorID),
     CHECK (RoleName IN ('Main actor', 'Supporting actor'))
 );
@@ -217,6 +217,10 @@ HAVING COUNT(Actor_ID) > 2;
 
 DELETE FROM Film -- Delet
 WHERE Title = 'Black Hawk Down';
+
+DELETE FROM Cast
+WHERE Film_ID = 5;
+
 SELECT Film.Title, Directors.fName, Directors.lName -- Inner join 
 FROM Film
 INNER JOIN Directors
