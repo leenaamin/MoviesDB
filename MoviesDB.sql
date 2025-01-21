@@ -30,14 +30,15 @@ CONSTRAINT PK_genreID PRIMARY KEY (genreID)
 
 
 CREATE TABLE MoviesDB.Film (
-ID INT PRIMARY KEY,
+ID INT,
 Title VARCHAR(100) NOT NULL,
 Language VARCHAR(50) NOT NULL,
-RelaseDate DATE NOT NULL,
+ReleaseDate DATE NOT NULL,
 Director_ID INT NOT NULL,
 Genre_ID INT NOT NULL,
-FOREIGN KEY (Director_ID) REFERENCES Directors(directorID) ON DELETE CASCADE,
-FOREIGN KEY (Genre_ID) REFERENCES Genres(genreID) ON DELETE CASCADE
+CONSTRAINT Film_PK PRIMARY KEY (ID),
+FOREIGN KEY (Director_ID) REFERENCES Director(ID) ON DELETE CASCADE,
+FOREIGN KEY (Genre_ID) REFERENCES Genres(ID) ON DELETE CASCADE
 );
 
 CREATE TABLE Cast (
@@ -111,6 +112,20 @@ INSERT INTO Genres (genreID, genreName ) VALUES
     (4,'Comedy'),
     (5,'Mystery'),
     (6,'War');
+
+INSERT INTO film (ID, Title, Language, ReleaseDate, Director_ID, Genre_ID) -- Insert
+VALUES
+(01, 'Interstellar', 'English', '2014-10-26', 101, 1),
+(02, 'The Holdovers', 'English', '2023-10-27', 102, 2),
+(03, 'Gone Girl', 'English', '2014-10-3', 103, 3),
+(04, 'Home Alone', 'English', '1990-11-10', 104, 4),
+(05, 'Donnie Darko', 'English', '2001-10-26', 105, 5),
+(06, 'Hacksaw Ridge', 'English', '2016-10-16', 106, 6),
+(07, 'Dune', 'English', '2021-9-3', 107, 1),
+(08, 'Aftersun', 'English', '2022-10-21', 108, 2),
+(09, 'Forgotten', 'Korean', '2017-11-29', 109, 3),
+(10, 'Sherlock Holmes', 'English', '2009-12-25', 110, 5),
+(11, 'Black Hawk Down', 'English', '2002-1-18', 111, 6);
 
 
 INSERT INTO Cast (ID, Film_ID, Actor_ID, RoleName)
@@ -199,3 +214,10 @@ SELECT Film_ID, COUNT(Actor_ID) AS ActorCount
 FROM Cast
 GROUP BY Film_ID
 HAVING COUNT(Actor_ID) > 2;
+
+DELETE FROM Film -- Delet
+WHERE Title = 'Black Hawk Down';
+SELECT Film.Title, Directors.fName, Directors.lName -- Inner join 
+FROM Film
+INNER JOIN Directors
+ON Film.Director_ID = Directors.directorID;
