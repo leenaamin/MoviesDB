@@ -92,7 +92,7 @@ CREATE TABLE Rating (
 
 INSERT INTO Directors (directorID, fName, lName, gender)
 VALUES 
-(101, 'Christopher', 'Nolan', 'M'),  -- Interstellar
+(99, 'Christopher', 'Nolan', 'M'),  -- Interstellar
 (102, 'Alexander', 'Payne', 'M'),   -- The Holdovers
 (103, 'David', 'Fincher', 'M'),     -- Gone Girl
 (104, 'Chris', 'Columbus', 'M'),    -- Home Alone
@@ -223,8 +223,8 @@ INNER JOIN Directors
 ON Film.Director_ID = Directors.directorID;
 
 UPDATE Directors
-SET directorID = 100
-WHERE directorID = 101;
+SET directorID = 101
+WHERE directorID = 99;
 
 UPDATE Genres
 SET genreName = 'Sci-Fi'
