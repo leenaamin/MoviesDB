@@ -7,8 +7,7 @@ CREATE TABLE IF NOT EXISTS Actor (
     ActorID INT(5) NOT NULL,
     Fname VARCHAR(50) NOT NULL,
     Lname VARCHAR(50) NOT NULL,
-    Gender VARCHAR(1) NOT NULL,
-    CONSTRAINT Gender_Check CHECK (Gender IN ('M' , 'F')),
+    gender VARCHAR (1)CHECK (gender IN ('M','F')),
     CONSTRAINT PK_ActorID PRIMARY KEY (ActorID)
 );
 
