@@ -219,6 +219,10 @@ FROM Film
 INNER JOIN Directors
 ON Film.Director_ID = Directors.directorID;
 
+SELECT Fname, Lname 
+FROM Actor 
+WHERE ActorID = (SELECT MAX(ActorID) FROM Actor);
+
 UPDATE Directors
 SET directorID = 101
 WHERE directorID = 99;
