@@ -53,13 +53,10 @@ CREATE TABLE Cast (
 CREATE TABLE Rating (
     ID INT(10) PRIMARY KEY,
     Film_ID INT,
-    Ratings DECIMAL (1.1),
+    Ratings DECIMAL(3,1), 
     FOREIGN KEY (Film_ID) REFERENCES Film(ID)
 );
 
-
-INSERT INTO Actor (ActorID ,Fname, Lname, Gender)
-VALUES
 (1, 'Matthew', 'McConaughey', 'M'),  -- Interstellar
 (2, 'Anne', 'Hathaway', 'F'),
 (3, 'Jessica', 'Chastain', 'F'),
@@ -171,20 +168,21 @@ VALUES
     (30, 11, 30, 'Supporting actor'),  -- Tom Sizemore
     (31, 11, 31, 'Supporting actor');  -- Ewan McGregor
 
-INSERT INTO Ratings (ID,Ratings) VALUES
-(1,9.5),
-(2,8),
-(3,9),
-(4,8.5),
-(5,9),
-(6,8.5),
-(7,8.5),
-(8,8.5),
-(9,8.5),
-(10,8,5),
-(11,8);
+INSERT INTO Rating (ID, Film_ID, Ratings) VALUES
+(1, 101, 9.5),
+(2, 102, 8.0),
+(3, 103, 9.0),
+(4, 104, 8.5),
+(5, 105, 9.0),
+(6, 106, 8.5),
+(7, 107, 8.5),
+(8, 108, 8.5),
+(9, 109, 8.5),
+(10, 110, 8.5),
+(11, 111, 8.0);
+
 SELECT * 
-FROM Ratings
+FROM Rating
 WHERE Ratings > 8;
 
 SELECT genreName, COUNT(*) AS FilmCount
