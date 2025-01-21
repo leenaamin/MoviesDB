@@ -236,4 +236,4 @@ WHERE genreID = 1;
 
 UPDATE Actor
 SET Lname = 'David'
-WHERE Fname = 'Matthew' AND Lname = 'McConaughey';
+WHERE ActorID = 1;
