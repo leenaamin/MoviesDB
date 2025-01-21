@@ -226,3 +226,7 @@ WHERE directorID = 99;
 UPDATE Genres
 SET genreName = 'Sci-Fi'
 WHERE genreID = 1;
+
+UPDATE Actor
+SET Lname = 'David'
+WHERE Fname = 'Matthew' AND Lname = 'McConaughey';
